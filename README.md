@@ -8,4 +8,4 @@ Developed using **React** (My First App using React)
 
 * **News Sources (Channels)**
 
-API used : [News API](https://newsapi.org/)
+**API used : [News API](https://newsapi.org/)**
