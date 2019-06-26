@@ -4,8 +4,8 @@
 Developed using **React** (My First App using React)
 
 ### Search for your news as per:
-* **Country and Category**
+* **Country and Category** :newspaper:
 
-* **News Sources (Channels)**
+* **News Sources (Channels)** :tv:
 
 **API used : [News API](https://newsapi.org/)**
