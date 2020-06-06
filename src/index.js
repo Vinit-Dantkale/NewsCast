@@ -6,6 +6,9 @@ import Sideoptions from "./Sideoptions";
 import Currentsearch from "./Currentsearch";
 import Sideoptions2 from "./Sideoptions2";
 
+const apiKey = require('./token/apikey.json');
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(apiKey[0].apiKey);
 var url;
 var choice = false;
 var pagecol;
@@ -16,12 +19,19 @@ class App extends Component {
     this.state = {
       selected: "headlines",
       headlines: {
-        prefix: "https://newsapi.org/v2/top-headlines?",
         country: "in",
         category: "general",
         sources: "",
         q: "",
         pageSize: 20,
+        page: 1
+      },
+      everything: {
+        q: "hello",
+        from: "2020-05-06",
+        to: "2020-05-06",
+        sources:"",
+        sortBy: "relevancy",
         page: 1
       },
       currentsearch: {
@@ -42,75 +52,117 @@ class App extends Component {
     };
   }
 
-  getdata(temp) {
-    url = this.buildUrl(this.state, temp);
-    //console.log(url);
-    fetch(url)
-      .then(response => response.json())
-      .then(json => {
+  getdata() {
+    if(this.state.selected === "headlines") {
+      console.log(this.state.headlines);
+      newsapi.v2.topHeadlines(this.state.headlines).then(response => {
         this.setState(function(state, props) {
           return {
-            data: json,
+            data: response,
             available: true
           };
-        });
-      })
-      .catch(error => {
-        this.setState(function(state, props) {
-          return { error: error, iserror: true };
-        });
+        }); 
       });
+    } 
+    if(this.state.selected === "everything") {
+      console.log(this.state.everything);
+      newsapi.v2.everything(this.state.everything).then(response => {
+        console.log(response);
+        this.setState(function(state, props) {
+          return {
+            data: response,
+            available: true
+          };
+        }); 
+      });     
+    }
   }
 
   sayhello(select, param, temp) {
+    console.log(select, param, temp);
     this.setState(
       function(state, props) {
         //Use function while updating state as direct update can lead to asynchronous update
-        if (param === "country") {
-          choice = false;
-          return {
-            selected: select,
-            headlines: {
-              ...state.headlines,
-              q: "",
-              country: temp.value,
-              page: 1
-            },
-            currentsearch: { ...state.currentsearch, thcountry: temp.id }
-          };
+        if (select === "headlines") {
+          if (param === "country") {
+            choice = false;
+            return {
+              selected: select,
+              headlines: {
+                ...state.headlines,
+                q: "",
+                sources: "",
+                country: temp.value,
+                page: 1
+              },
+              currentsearch: { ...state.currentsearch, thcountry: temp.id }
+            };
+          }
+          if (param === "category") {
+            choice = false;
+            return {
+              selected: select,
+              headlines: {
+                ...state.headlines,
+                q: "",
+                sources: "",
+                category: temp.value,
+                page: 1
+              },
+              currentsearch: { ...state.currentsearch, thcategory: temp.id }
+            };
+          }
+          if (param === "sources") {
+            choice = true;
+            return {
+              selected: "headlines",
+              headlines: { 
+                ...state.headlines, 
+                q: "",
+                country: "",
+                category: "",
+                sources: temp, 
+                page: 1 
+              },
+              currentsearch: { ...state.currentsearch, thsources: temp }
+            };
+          }
+          if (param === "q") {
+            return {
+              selected: select,
+              headlines: { ...state.headlines, q: temp, page: 1 }
+            };
+          }
+          if (param === "page") {
+            return {
+              headlines: { ...state.headlines, page: temp }
+            };
+          }
         }
-        if (param === "category") {
-          choice = false;
-          return {
-            selected: select,
-            headlines: {
-              ...state.headlines,
-              q: "",
-              category: temp.value,
-              page: 1
-            },
-            currentsearch: { ...state.currentsearch, thcategory: temp.id }
-          };
-        }
-        if (param === "sources") {
-          choice = true;
-          return {
-            selected: "headlines",
-            headlines: { ...state.headlines, q: "", sources: temp, page: 1 },
-            currentsearch: { ...state.currentsearch, thsources: temp }
-          };
-        }
-        if (param === "q") {
-          return {
-            selected: select,
-            headlines: { ...state.headlines, q: temp, page: 1 }
-          };
-        }
-        if (param === "page") {
-          return {
-            headlines: { ...state.headlines, page: temp }
-          };
-        }
+        if (select === "everything") {
+          if (param === "q") {
+            choice = false;
+            return {
+              selected: select,
+              everything: {
+                ...state.everything,
+                 q: temp
+              },
+              currentsearch: { ...state.currentsearch, thcountry: temp.id }
+            };
+          }
+          if (param === "sources") {
+            choice = false;
+            return {
+              selected: select,
+              everything: {
+                ...state.everything,
+                sources: temp
+              },
+              currentsearch: { ...state.currentsearch, thcountry: temp.id }
+            }; 
+          }
+        } 
       },
       function() {
         if (choice === true) {

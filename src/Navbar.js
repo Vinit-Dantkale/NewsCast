@@ -14,7 +14,7 @@ class Navbar extends Component {
   }
 
   submitval() {
-    this.props.triggerParentUpdate("headlines", "q", this.state.q);
+    this.props.triggerParentUpdate("everything", "q", this.state.q);
   }
 
   getval = e => {
