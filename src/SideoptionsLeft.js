@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import list from "./lists.json";
 var lists = list;
 
-class Sideoptions extends Component {
+class SideoptionsLeft extends Component {
   selectedcountry(event) {
     this.props.triggerParentUpdate("headlines", "country", event.target);
   }
@@ -59,4 +59,4 @@ class Sideoptions extends Component {
   }
 }
 
-export default Sideoptions;
+export default SideoptionsLeft;

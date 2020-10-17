@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Sideoptions from "./Sideoptions";
-import Sideoptions2 from "./Sideoptions2";
+import SideoptionsLeft from "./SideoptionsLeft";
+import SideoptionsRight from "./SideoptionsRight";
 
 class Navbar extends Component {
   constructor() {
@@ -100,9 +100,9 @@ class Navbar extends Component {
               </div>
 
               <div className="modal-body">
-                <Sideoptions triggerParentUpdate={this.sayhello.bind(this)} />
+                <SideoptionsLeft triggerParentUpdate={this.sayhello.bind(this)} />
                 <br />
-                <Sideoptions2 triggerParentUpdate={this.sayhello.bind(this)} />
+                <SideoptionsRight triggerParentUpdate={this.sayhello.bind(this)} />
               </div>
             </div>
           </div>
