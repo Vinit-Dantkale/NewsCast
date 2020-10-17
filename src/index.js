@@ -9,7 +9,7 @@ import SideoptionsRight from "./SideoptionsRight";
 const apiKey = require('./token/apikey.json');
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(apiKey[0].apiKey);
-var url;
+
 var choice = false;
 var pagecol;
 
@@ -28,8 +28,6 @@ class App extends Component {
       },
       everything: {
         q: "hello",
-        from: "2020-05-06",
-        to: "2020-05-06",
         sources:"",
         sortBy: "relevancy",
         page: 1
@@ -173,29 +171,6 @@ class App extends Component {
       }
     );
   }
-
-  buildUrl = (temp, cond) => {
-    let url = "";
-    url = temp.headlines["prefix"];
-    if (cond === "sourcesonly") {
-      url += "sources=" + temp.headlines["sources"];
-    } else {
-      url +=
-        "country=" +
-        temp.headlines["country"] +
-        "&category=" +
-        temp.headlines["category"];
-    }
-
-    url +=
-      "&q=" +
-      temp.headlines["q"] +
-      "&page=" +
-      temp.headlines["page"] +
-      "&apiKey=c1888f19eed343cdb78edaa6274585f0";
-
-    return url;
-  };
 
   componentWillMount() {
     this.getdata();

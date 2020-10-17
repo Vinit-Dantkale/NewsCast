@@ -44,6 +44,7 @@ class Snippetcolumns extends Component {
       return (
         <Errorcomponent
           msg={"No Connection or 404:Server Not Found. " + error}
+          image={"404"}
         />
       );
     } else if (!available) {
@@ -54,9 +55,13 @@ class Snippetcolumns extends Component {
         </h3>
       );
     } else if (data.status === "error") {
-      return <Errorcomponent msg={data.code} />;
+      return <Errorcomponent 
+        msg={data.code} 
+        image={"404"}/>;
     } else if (data.status === "ok" && data.totalResults === 0) {
-      return <Errorcomponent msg={"Total Results : " + data.totalResults} />;
+      return <Errorcomponent 
+        msg={"Total Results : " + data.totalResults} 
+        image={"noresults"}/>;
     }
 
     return (
