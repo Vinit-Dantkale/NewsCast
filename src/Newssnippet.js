@@ -13,6 +13,11 @@ class Newssnippet extends React.Component {
     this.state = { hover: false };
   }
 
+  constructDate(dateUTC) {
+    let date=new Date(dateUTC)
+    return `${date.toDateString()} - ${date.toLocaleTimeString()}` 
+  }
+
   mousehover() {
     this.setState({ hover: !this.state.hover });
   }
@@ -66,7 +71,9 @@ class Newssnippet extends React.Component {
             <a href={this.props.url} className="float-left text-white">
               Full Article
             </a>
-            <span className="float-center text-white">{this.props.date}</span>
+            <span className="float-center text-white">{
+              this.constructDate(this.props.date)
+            }</span>
             <span className="float-right text-white">
               <b> Author : </b>
               {this.props.author}
