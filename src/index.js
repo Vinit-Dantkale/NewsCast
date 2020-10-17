@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Navbar from "./Navbar";
 import Snippetcolumns from "./Snippetcolumns";
-import Sideoptions from "./Sideoptions";
+import SideoptionsLeft from "./SideoptionsLeft";
 import Currentsearch from "./Currentsearch";
-import Sideoptions2 from "./Sideoptions2";
+import SideoptionsRight from "./SideoptionsRight";
 
 const apiKey = require('./token/apikey.json');
 const NewsAPI = require('newsapi');
@@ -253,7 +253,7 @@ class App extends Component {
         <div className="row">
           <Navbar triggerParentUpdate={this.sayhello.bind(this)} />
           <div className="col-lg-2 col-xs-2 sideopt1">
-            <Sideoptions triggerParentUpdate={this.sayhello.bind(this)} />
+            <SideoptionsLeft triggerParentUpdate={this.sayhello.bind(this)} />
           </div>
           <Snippetcolumns
             data={this.state.data}
@@ -262,7 +262,7 @@ class App extends Component {
             error={this.state.error}
           />
           <div className="col-lg-2 col-xs-2 sideopt2">
-            <Sideoptions2 triggerParentUpdate={this.sayhello.bind(this)} />
+            <SideoptionsRight triggerParentUpdate={this.sayhello.bind(this)} />
           </div>
           {pagecol}
           <Currentsearch url={this.state.currentsearch} />

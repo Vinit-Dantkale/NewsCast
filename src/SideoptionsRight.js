@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import list from "./lists.json";
 var lists = list.sources;
 var tempurl = [];
-class Sideoptions2 extends Component {
+class SideoptionsRight extends Component {
   selectedsource(event) {
     if (event.target.checked === true) {
       tempurl.push(event.target.value);
@@ -51,4 +51,4 @@ class Sideoptions2 extends Component {
   }
 }
 
-export default Sideoptions2;
+export default SideoptionsRight;
